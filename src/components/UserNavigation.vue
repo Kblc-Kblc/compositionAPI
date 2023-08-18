@@ -14,18 +14,18 @@
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue'
 import { useAuthStore } from '@/stores/auth/auth'
-import { useRouter } from 'vue-router'
+import { useRouter, RouteLocationRaw } from 'vue-router'
 import api from '@/api/index'
 import { ArrowDown } from '@element-plus/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'UserNavigation',
   components: { ArrowDown },
   setup() {
-    const user = ref(null)
+    const user = ref<any>(null) //!заменить 'any' на более конкретный тип
     const authStore = useAuthStore()
     const router = useRouter()
 
@@ -42,7 +42,8 @@ export default {
       try {
         await authStore.logout()
         user.value = null
-        router.push({ name: 'Login' })
+        const route: RouteLocationRaw = { name: 'Login' }
+        router.push(route)
       } catch (error) {
         console.error(error)
       }
@@ -53,7 +54,7 @@ export default {
       handleLogout
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -16,7 +16,8 @@
   </BaseTable>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import {
@@ -28,7 +29,7 @@ import {
 } from '@/stores/filterStoreFactory'
 import { Select, CloseBold } from '@element-plus/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'ContentApplications',
   components: {
     BaseTable,
@@ -50,5 +51,5 @@ export default {
       ...useBaseTableResult
     }
   }
-}
+})
 </script>

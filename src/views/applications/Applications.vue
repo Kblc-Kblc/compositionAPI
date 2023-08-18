@@ -10,15 +10,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import ApplicationsSelect from '@/components/ApplicationsSelect.vue'
 
-export default {
+export default defineComponent({
   name: 'Applications',
   components: {
     ApplicationsSelect
   }
-}
+})
 </script>
 
 <style scoped>

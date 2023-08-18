@@ -21,16 +21,16 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-
 import { useUploadedFilterStore } from '@/stores/filterStoreFactory'
-
 import useFilterDataSources from '@/use/useFilterDataSources'
+import { Section } from '@/types/types'
 
-export default {
+
+export default defineComponent({
   name: 'StatusIndicatorsSelect',
   components: {
     BaseSelect
@@ -62,13 +62,13 @@ export default {
 
     const uploadedFilterStore = useUploadedFilterStore()
     const uploadedFilter = ref(uploadedFilterStore.value)
-    const selectDataUploaded = ref([
+    const selectDataUploaded = ref<{ id: string, name: string, icon?: string }[]>([
       { id: 'Все', name: 'Все' },
       { id: '1', name: 'True', icon: `Select` },
       { id: '0', name: 'False', icon: `CloseBold` }
     ])
 
-    const sections = ref([
+    const sections = ref<Section[]>([
       {
         title: 'Показатель',
         filter: indicatorFilter,
@@ -129,7 +129,7 @@ export default {
       handleOpenSelect
     }
   }
-}
+})
 </script>
 
 <style scoped>

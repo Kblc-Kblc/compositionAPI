@@ -20,16 +20,17 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-
 import { useEducationLevelsFilterStore, useSpecialtiesClassifiersFilterStore } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
+import { Section } from '@/types/types'
 
-export default {
+
+export default defineComponent({
   name: 'SpecialtiesSelect',
   components: {
     BaseSelect
@@ -37,11 +38,11 @@ export default {
   setup() {
     const educationLevelsFilterStore = useEducationLevelsFilterStore()
     const educationLevelsFilter = ref(educationLevelsFilterStore.value)
-    const selectDataEducationLevels = ref([])
+    const selectDataEducationLevels = ref<any[]>([])
 
     const specialtiesClassifiersFilterStore = useSpecialtiesClassifiersFilterStore()
     const specialtiesClassifiersFilter = ref(specialtiesClassifiersFilterStore.value)
-    const selectDataSpecialtiesClassifiers = ref([])
+    const selectDataSpecialtiesClassifiers = ref<any[]>([])
 
     const fetchDataEducationLevels = useFetchData({
       apiCall: api.dataSelect.getEducationLevels,
@@ -52,7 +53,7 @@ export default {
       selectData: selectDataSpecialtiesClassifiers
     }).fetchData
 
-    const sections = ref([
+    const sections = ref<Section[]>([
       {
         title: 'Уровень образования',
         filter: educationLevelsFilter,
@@ -85,7 +86,7 @@ export default {
       handleOpenSelect
     }
   }
-}
+})
 </script>
 
 <style scoped>

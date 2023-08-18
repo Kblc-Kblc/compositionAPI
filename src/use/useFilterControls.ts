@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import * as stores from '@/stores/index'
+import * as filterStores from '@/stores/filterStoreFactory'
 
 export default function useFilterControls(sections) {
   const loading = ref(false)
@@ -35,7 +35,7 @@ export default function useFilterControls(sections) {
       valueToUpdate = { id: e }
     }
 
-    const store = stores[`use${storeId.$id.charAt(0).toUpperCase() + storeId.$id.slice(1)}Store`]()
+    const store = filterStores[`use${storeId.$id.charAt(0).toUpperCase() + storeId.$id.slice(1)}Store`]()
     store.set(valueToUpdate)
   }
 

@@ -14,6 +14,6 @@ const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
-app.use(ElementPlus, { useDarkMode: true })
+app.use(ElementPlus, { useDarkMode: true } as any)
 
 app.mount('#app')

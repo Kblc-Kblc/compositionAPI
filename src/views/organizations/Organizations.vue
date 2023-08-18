@@ -22,12 +22,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import OrganizationsSelect from '@/components/OrganizationsSelect.vue'
 import BaseSearch from '@/components/BaseSearch.vue'
 import useSearch from '@/use/useSearch'
 
-export default {
+export default defineComponent({
   name: 'Organizations',
   components: {
     OrganizationsSelect,
@@ -42,7 +43,7 @@ export default {
       resetSearch
     }
   }
-}
+})
 </script>
 
 <style scoped>

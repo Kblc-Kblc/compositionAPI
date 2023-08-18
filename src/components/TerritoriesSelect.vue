@@ -20,11 +20,10 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-
 import {
   useTerritoriesParentFilterStore,
   useTerritoriesTypesFilterStore,
@@ -33,8 +32,10 @@ import {
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 import useFilterDataSources from '@/use/useFilterDataSources'
+import { Section } from '@/types/types'
 
-export default {
+
+export default defineComponent({
   name: 'TerritoriesSelect',
   components: {
     BaseSelect
@@ -51,21 +52,21 @@ export default {
 
     const territoriesParentFilterStore = useTerritoriesParentFilterStore()
     const territoriesParentFilter = ref(territoriesParentFilterStore.value)
-    const selectDataTerritoriesParent = ref([])
-    const currentPageTerritoriesParent = ref(1)
-    const sizePageTerritoriesParent = ref(25)
-    const searchQueryTerritoriesParent = ref('')
+    const selectDataTerritoriesParent = ref<any[]>([]) // Replace `any` if you know the type.
+    const currentPageTerritoriesParent = ref<number>(1)
+    const sizePageTerritoriesParent = ref<number>(25)
+    const searchQueryTerritoriesParent = ref<string>('')
 
     const territoriesTypesFilterStore = useTerritoriesTypesFilterStore()
     const territoriesTypesFilter = ref(territoriesTypesFilterStore.value)
-    const selectDataTerritoriesTypes = ref([])
+    const selectDataTerritoriesTypes = ref<any[]>([]) // Replace `any` if you know the type.
 
     const territoriesGroupFilterStore = useTerritoriesGroupFilterStore()
     const territoriesGroupFilter = ref(territoriesGroupFilterStore.value)
-    const selectDataTerritoriesGroup = ref([])
-    const currentPageTerritoriesGroup = ref(1)
-    const sizePageTerritoriesGroup = ref(25)
-    const searchQueryTerritoriesGroup = ref('')
+    const selectDataTerritoriesGroup = ref<any[]>([]) // Replace `any` if you know the type.
+    const currentPageTerritoriesGroup = ref<number>(1)
+    const sizePageTerritoriesGroup = ref<number>(25)
+    const searchQueryTerritoriesGroup = ref<string>('')
 
     const fetchDataTerritoriesParent = useFetchData({
       apiCall: api.dataSelect.getTerritories,
@@ -88,7 +89,7 @@ export default {
       searchQuery: searchQueryTerritoriesGroup
     }).fetchData
 
-    const sections = ref([
+    const sections = ref<Section[]>([
       {
         title: 'ID',
         filter: territoriesFilter,
@@ -147,7 +148,7 @@ export default {
       handleOpenSelect
     }
   }
-}
+})
 </script>
 
 <style scoped>

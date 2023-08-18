@@ -24,15 +24,15 @@
   </div>
 </template>
 
-<script>
-import { ref, watch } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, watch } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'NavigationIndicators',
   setup() {
-    const collapse = ref(localStorage.getItem('collapse') || '1')
+    const collapse = ref<string>(localStorage.getItem('collapse') || '1')
 
-    watch(collapse, (newCollapse) => {
+    watch(collapse, (newCollapse: string) => {
       localStorage.setItem('collapse', newCollapse)
     })
 
@@ -40,7 +40,7 @@ export default {
       collapse
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

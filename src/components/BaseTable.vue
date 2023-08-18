@@ -21,45 +21,45 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
-import Pagination from '@/components/Pagination.vue'
+<script lang="ts">
+import { ref, defineComponent, PropType } from 'vue';
+import Pagination from '@/components/Pagination.vue';
 
-export default {
+export default defineComponent({
   name: 'BaseTable',
   components: {
     Pagination
   },
   props: {
     tableData: {
-      type: Array,
+      type: Array as PropType<any[]>,
       required: true
     },
     total: {
-      type: Number,
+      type: Number as PropType<number>,
       required: true
     },
     loading: {
-      type: Boolean,
+      type: Boolean as PropType<boolean>,
       default: false
     }
   },
   setup(props, { emit }) {
-    const currentPage = ref(1)
-    const pageSize = ref(25)
+    const currentPage = ref(1);
+    const pageSize = ref(25);
 
-    const handleSizeChange = (newSize) => {
-      pageSize.value = newSize
-      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value })
+    const handleSizeChange = (newSize: number) => {
+      pageSize.value = newSize;
+      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value });
     }
 
-    const handleCurrentChange = (newCurrentPage) => {
-      currentPage.value = newCurrentPage
-      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value })
+    const handleCurrentChange = (newCurrentPage: number) => {
+      currentPage.value = newCurrentPage;
+      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value });
     }
 
-    const handleSortChange = ({ prop, order }) => {
-      emit('sort', { prop, order })
+    const handleSortChange = ({ prop, order }: { prop: string; order: string }) => {
+      emit('sort', { prop, order });
     }
 
     return {
@@ -70,8 +70,9 @@ export default {
       handleSortChange
     }
   }
-}
+});
 </script>
+
 
 <style scoped>
 .table-wrapper {

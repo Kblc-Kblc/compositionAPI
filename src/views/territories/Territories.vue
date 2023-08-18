@@ -21,12 +21,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import TerritoriesSelect from '@/components/TerritoriesSelect.vue'
 import BaseSearch from '@/components/BaseSearch.vue'
 import useSearch from '@/use/useSearch'
 
-export default {
+export default defineComponent({
   name: 'Territories',
   components: {
     TerritoriesSelect,
@@ -41,7 +42,7 @@ export default {
       resetSearch
     }
   }
-}
+})
 </script>
 
 <style scoped>

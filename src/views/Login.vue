@@ -25,24 +25,31 @@
   </login-layout>
 </template>
 
-<script>
-import { ref, reactive } from 'vue'
+<script lang="ts">
+import { defineComponent, ref, reactive } from 'vue'
 import { useAuthStore } from '@/stores/auth/auth'
 import { useRouter } from 'vue-router'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import { ElNotification } from 'element-plus'
 
-export default {
+
+interface FormComponent {
+  validate: (callback: (valid: boolean) => void) => void;
+}
+
+export default defineComponent({
   name: 'Login',
   components: { LoginLayout },
   setup() {
     const router = useRouter()
     const auth = useAuthStore()
+
     const form = ref({
       email: '',
       password: ''
     })
-    const formRef = ref(null)
+
+    const formRef = ref<FormComponent | null>(null)
 
     const errors = reactive({ email: '', password: '' })
 
@@ -67,7 +74,8 @@ export default {
     })
 
     const submitForm = async () => {
-      formRef.value.validate(async (valid) => {
+      if (formRef.value) {
+      formRef.value.validate(async (valid: boolean) => {
         if (valid) {
           try {
             await auth.login({ email: form.value.email, password: form.value.password })
@@ -86,6 +94,7 @@ export default {
         }
       })
     }
+    }
 
     return {
       form,
@@ -95,7 +104,7 @@ export default {
       errors
     }
   }
-}
+})
 </script>
 
 <style lang="scss" scoped>

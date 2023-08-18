@@ -21,17 +21,18 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
 import useFilterDataSources from '@/use/useFilterDataSources'
-
 import { useStatusesFilterStore } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
+import { Section } from '@/types/types'
 
-export default {
+
+export default defineComponent({
   name: 'ValueIndicatorsSelect',
   components: {
     BaseSelect
@@ -84,14 +85,14 @@ export default {
 
     const statusesFilterStore = useStatusesFilterStore()
     const statusesFilter = ref(statusesFilterStore.value)
-    const selectDataStatuses = ref([])
+    const selectDataStatuses = ref<any[]>([])
 
     const fetchDataStatuses = useFetchData({
       apiCall: api.dataSelect.getStatuses,
       selectData: selectDataStatuses
     }).fetchData
 
-    const sections = ref([
+    const sections = ref<Section[]>([
       {
         title: 'Показатель',
         filter: indicatorFilter,
@@ -183,7 +184,7 @@ export default {
       handleOpenSelect
     }
   }
-}
+})
 </script>
 
 <style scoped>

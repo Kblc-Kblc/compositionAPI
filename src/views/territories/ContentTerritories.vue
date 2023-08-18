@@ -8,8 +8,8 @@
   </BaseTable>
 </template>
 
-<script>
-import { computed } from 'vue'
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import { useSearchFilterStore } from '@/stores/searchFilter'
@@ -20,7 +20,7 @@ import {
   useTerritoriesGroupFilterStore
 } from '@/stores/filterStoreFactory'
 
-export default {
+export default defineComponent({
   name: 'ContentTerritories',
   components: {
     BaseTable
@@ -41,5 +41,5 @@ export default {
       ...useBaseTableResult
     }
   }
-}
+})
 </script>

@@ -6,27 +6,33 @@
   </el-input>
 </template>
 
-<script>
-import { Search } from '@element-plus/icons-vue'
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import { Search } from '@element-plus/icons-vue';
 
-export default {
+export default defineComponent({
   name: 'BaseSearch',
   components: {
     Search
   },
-  props: ['modelValue', 'resetSearch', 'placeholder'],
+  props: {
+    modelValue: String as PropType<string>,
+      resetSearch: Function as PropType<() => void>,
+    placeholder: String as PropType<string>
+  },
   watch: {
     resetSearch: {
       handler() {
-        this.$emit('update:modelValue', '')
+        this.$emit('update:modelValue', '');
       },
       immediate: true
     }
   },
   methods: {
-    updateSearch(newSearch) {
-      this.$emit('update:modelValue', newSearch)
+    updateSearch(newSearch: string) {
+      this.$emit('update:modelValue', newSearch);
     }
   }
-}
+});
 </script>
+

@@ -9,15 +9,16 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import StatusIndicatorsSelect from '@/components/StatusIndicatorsSelect.vue'
 
-export default {
+export default defineComponent({
   name: 'StatusIndicators',
   components: {
     StatusIndicatorsSelect
   }
-}
+})
 </script>
 
 <style scoped>

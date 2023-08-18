@@ -11,11 +11,20 @@
   </el-pagination>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'Pagination',
-  props: ['currentPage', 'pageSize', 'total', 'handleSizeChange', 'handleCurrentChange', 'pageSizes']
-}
+  props: {
+    currentPage: Number,
+    pageSize: Number,
+    total: Number,
+    handleSizeChange: Function,
+    handleCurrentChange: Function,
+    pageSizes: Array
+  }
+})
 </script>
 
 <style lang="scss" scoped>

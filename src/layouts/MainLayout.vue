@@ -36,14 +36,14 @@
   </el-container>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted, PropType } from 'vue'
 import NavigationIndicators from '@/components/NavigationIndicators.vue'
 import UserInfo from '@/components/UserInfo.vue'
 import UserNavigation from '@/components/UserNavigation.vue'
-import { ref, onMounted } from 'vue'
 import { Moon, Sunny } from '@element-plus/icons-vue'
 
-export default {
+export default defineComponent({
   name: 'MainLayout',
   components: {
     NavigationIndicators,
@@ -54,12 +54,12 @@ export default {
   },
   props: {
     headerTitle: {
-      type: String,
+      type: String as PropType<string>,
       default: ''
     }
   },
   setup() {
-    const isDarkMode = ref(localStorage.getItem('darkMode') === 'true')
+    const isDarkMode = ref<boolean>(localStorage.getItem('darkMode') === 'true')
 
     const updateDarkModeClass = () => {
       if (isDarkMode.value) {
@@ -71,7 +71,7 @@ export default {
 
     const toggleDarkMode = () => {
       isDarkMode.value = !isDarkMode.value
-      localStorage.setItem('darkMode', isDarkMode.value)
+      localStorage.setItem('darkMode', String(isDarkMode.value))
       updateDarkModeClass()
     }
 
@@ -81,8 +81,9 @@ export default {
       isDarkMode
     }
   }
-}
+})
 </script>
+
 <style lang="scss" scoped>
 .el-main {
   --el-main-padding: 1rem;

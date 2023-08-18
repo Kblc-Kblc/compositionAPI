@@ -21,14 +21,15 @@
   </div>
 </template>
 
-<script>
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
 import { useRealFilterStore } from '@/stores/filterStoreFactory'
 import useFilterDataSources from '@/use/useFilterDataSources'
+import { Section } from '@/types/types'
 
-export default {
+export default defineComponent({
   name: 'ApplicationsSelect',
   components: {
     BaseSelect
@@ -61,14 +62,14 @@ export default {
     } = useFilterDataSources()
 
     const realFilterStore = useRealFilterStore()
-    const realFilter = ref(realFilterStore.value)
-    const selectDataReal = ref([
+    const realFilter = ref<any>(realFilterStore.value) //!заменить 'any' на более конкретный тип
+    const selectDataReal = ref<any[]>([
       { id: 'Все', name: 'Все' },
       { id: '1', name: 'True', icon: `Select` },
       { id: '0', name: 'False', icon: `CloseBold` }
-    ])
+    ]) //!заменить 'any' на более конкретный тип
 
-    const sections = ref([
+    const sections = ref<Section[]>([
       {
         title: 'Специальность',
         filter: specialtiesFilter,
@@ -131,7 +132,7 @@ export default {
       handleOpenSelect
     }
   }
-}
+})
 </script>
 
 <style scoped>
