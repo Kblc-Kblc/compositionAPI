@@ -15,10 +15,10 @@ import BaseTable from '@/components/BaseTable.vue'
 import { useSearchFilterStore } from '@/stores/searchFilter'
 
 import {
-  useOrganizationsFilterStore,
-  useOrganizationsHeadFilterStore,
-  useOrganizationsTypesFilterStore,
-  useTerritoriesFilterStore
+  organizationsFilter,
+  organizationsHeadFilter,
+  organizationsTypesFilter,
+  territoriesFilter
 } from '@/stores/filterStoreFactory'
 
 export default defineComponent({
@@ -30,10 +30,10 @@ export default defineComponent({
     const searchFilterStore = useSearchFilterStore()
 
     const filtersConfig = {
-      id: useOrganizationsFilterStore(),
-      head_id: useOrganizationsHeadFilterStore(),
-      type_id: useOrganizationsTypesFilterStore(),
-      territory_id: useTerritoriesFilterStore(),
+      id: organizationsFilter(),
+      head_id: organizationsHeadFilter(),
+      type_id: organizationsTypesFilter(),
+      territory_id: territoriesFilter(),
       search: computed(() => searchFilterStore.debouncedSearch)
     }
 

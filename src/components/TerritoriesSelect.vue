@@ -25,9 +25,9 @@ import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
 import {
-  useTerritoriesParentFilterStore,
-  useTerritoriesTypesFilterStore,
-  useTerritoriesGroupFilterStore
+  territoriesParentFilter,
+  territoriesTypesFilter,
+  territoriesGroupFilter
 } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
@@ -43,27 +43,27 @@ export default defineComponent({
   setup() {
     const {
       territoriesFilterStore,
-      territoriesFilter,
+      territoriesFilterValue,
       selectDataTerritories,
       currentPageTerritories,
       searchQueryTerritories,
       fetchDataTerritories
     } = useFilterDataSources()
 
-    const territoriesParentFilterStore = useTerritoriesParentFilterStore()
-    const territoriesParentFilter = ref(territoriesParentFilterStore.value)
-    const selectDataTerritoriesParent = ref<any[]>([]) // Replace `any` if you know the type.
+    const territoriesParentFilterStore = territoriesParentFilter()
+    const territoriesParentFilterValue = ref(territoriesParentFilterStore.value)
+    const selectDataTerritoriesParent = ref<any[]>([])
     const currentPageTerritoriesParent = ref<number>(1)
     const sizePageTerritoriesParent = ref<number>(25)
     const searchQueryTerritoriesParent = ref<string>('')
 
-    const territoriesTypesFilterStore = useTerritoriesTypesFilterStore()
-    const territoriesTypesFilter = ref(territoriesTypesFilterStore.value)
-    const selectDataTerritoriesTypes = ref<any[]>([]) // Replace `any` if you know the type.
+    const territoriesTypesFilterStore = territoriesTypesFilter()
+    const territoriesTypesFilterValue = ref(territoriesTypesFilterStore.value)
+    const selectDataTerritoriesTypes = ref<any[]>([])
 
-    const territoriesGroupFilterStore = useTerritoriesGroupFilterStore()
-    const territoriesGroupFilter = ref(territoriesGroupFilterStore.value)
-    const selectDataTerritoriesGroup = ref<any[]>([]) // Replace `any` if you know the type.
+    const territoriesGroupFilterStore = territoriesGroupFilter()
+    const territoriesGroupFilterValue = ref(territoriesGroupFilterStore.value)
+    const selectDataTerritoriesGroup = ref<any[]>([])
     const currentPageTerritoriesGroup = ref<number>(1)
     const sizePageTerritoriesGroup = ref<number>(25)
     const searchQueryTerritoriesGroup = ref<string>('')
@@ -92,7 +92,7 @@ export default defineComponent({
     const sections = ref<Section[]>([
       {
         title: 'ID',
-        filter: territoriesFilter,
+        filter: territoriesFilterValue,
         selectData: selectDataTerritories,
         currentPage: currentPageTerritories,
         store: territoriesFilterStore,
@@ -103,7 +103,7 @@ export default defineComponent({
       },
       {
         title: 'ID родителя',
-        filter: territoriesParentFilter,
+        filter: territoriesParentFilterValue,
         selectData: selectDataTerritoriesParent,
         currentPage: currentPageTerritoriesParent,
         store: territoriesParentFilterStore,
@@ -114,7 +114,7 @@ export default defineComponent({
       },
       {
         title: 'Тип',
-        filter: territoriesTypesFilter,
+        filter: territoriesTypesFilterValue,
         selectData: selectDataTerritoriesTypes,
         store: territoriesTypesFilterStore,
         fetchDataFunc: fetchDataTerritoriesTypes,
@@ -123,7 +123,7 @@ export default defineComponent({
       },
       {
         title: 'ID группы',
-        filter: territoriesGroupFilter,
+        filter: territoriesGroupFilterValue,
         selectData: selectDataTerritoriesGroup,
         currentPage: currentPageTerritoriesGroup,
         store: territoriesGroupFilterStore,

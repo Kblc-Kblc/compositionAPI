@@ -7,11 +7,13 @@ export const useAuthStore = defineStore({
     token: localStorage.getItem('api_token')
   }),
   actions: {
-    async login({ email, password }) {
+    async login({ email, password }: { email: string; password: string }) {
       try {
         const response = await api.auth.login(email, password)
         this.token = response.data.token
-        localStorage.setItem('api_token', this.token)
+        if (this.token) {
+          localStorage.setItem('api_token', this.token)
+      }
       } catch (error) {
         console.error(error)
         throw error

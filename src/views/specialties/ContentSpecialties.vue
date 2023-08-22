@@ -12,7 +12,7 @@ import { computed, defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import { useSearchFilterStore } from '@/stores/searchFilter'
-import { useEducationLevelsFilterStore, useSpecialtiesClassifiersFilterStore } from '@/stores/filterStoreFactory'
+import { educationLevelsFilter, specialtiesClassifiersFilter } from '@/stores/filterStoreFactory'
 
 export default defineComponent({
   name: 'ContentSpecialties',
@@ -23,8 +23,8 @@ export default defineComponent({
     const searchFilterStore = useSearchFilterStore()
 
     const filtersConfig = {
-      level_id: useEducationLevelsFilterStore(),
-      classifier_id: useSpecialtiesClassifiersFilterStore(),
+      level_id: educationLevelsFilter(),
+      classifier_id: specialtiesClassifiersFilter(),
       search: computed(() => searchFilterStore.debouncedSearch)
     }
 

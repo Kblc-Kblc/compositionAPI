@@ -16,14 +16,14 @@ import { defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import {
-  useIndicatorFilterStore,
-  usePeriodFilterStore,
-  useSpecialtiesFilterStore,
-  useOrganizationsFilterStore,
-  useTerritoriesFilterStore,
-  useStepsFilterStore,
-  useStatusesFilterStore,
-  useTrainingFormsFilterStore
+  indicatorFilter,
+  periodFilter,
+  specialtiesFilter,
+  organizationsFilter,
+  territoriesFilter,
+  stepsFilter,
+  statusesFilter,
+  trainingFormsFilter
 } from '@/stores/filterStoreFactory'
 
 export default defineComponent({
@@ -33,14 +33,14 @@ export default defineComponent({
   },
   setup() {
     const filtersConfig = {
-      indicator_id: useIndicatorFilterStore(),
-      year: usePeriodFilterStore(),
-      specialty_id: useSpecialtiesFilterStore(),
-      organization_id: useOrganizationsFilterStore(),
-      territory_id: useTerritoriesFilterStore(),
-      step_id: useStepsFilterStore(),
-      status_id: useStatusesFilterStore(),
-      training_form_id: useTrainingFormsFilterStore()
+      indicator_id: indicatorFilter(),
+      year: periodFilter(),
+      specialty_id: specialtiesFilter(),
+      organization_id: organizationsFilter(),
+      territory_id: territoriesFilter(),
+      step_id: stepsFilter(),
+      status_id: statusesFilter(),
+      training_form_id: trainingFormsFilter()
     }
 
     const useBaseTableResult = useBaseTable(filtersConfig, 'getDataIndicators')

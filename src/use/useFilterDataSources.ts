@@ -1,55 +1,55 @@
 import { ref } from 'vue'
 import {
-  useIndicatorFilterStore,
-  usePeriodFilterStore,
-  useSpecialtiesFilterStore,
-  useOrganizationsFilterStore,
-  useTerritoriesFilterStore,
-  useStepsFilterStore,
-  useTrainingFormsFilterStore
+  indicatorFilter,
+  periodFilter,
+  specialtiesFilter,
+  organizationsFilter,
+  territoriesFilter,
+  stepsFilter,
+  trainingFormsFilter
 } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 
 export default function useFilterDataSources() {
-  const indicatorFilterStore = useIndicatorFilterStore()
-  const indicatorFilter = ref(indicatorFilterStore.value)
+  const indicatorFilterStore = indicatorFilter()
+  const indicatorFilterValue = ref(indicatorFilterStore.value)
   const selectDataIndicators = ref([])
   const currentPageIndicators = ref(1)
   const sizePageIndicators = ref(25)
   const searchQueryIndicators = ref('')
 
-  const periodFilterStore = usePeriodFilterStore()
-  const periodFilter = ref(periodFilterStore.value)
+  const periodFilterStore = periodFilter()
+  const periodFilterValue = ref(periodFilterStore.value)
   const selectDataPeriods = ref([])
 
-  const specialtiesFilterStore = useSpecialtiesFilterStore()
-  const specialtiesFilter = ref(specialtiesFilterStore.value)
+  const specialtiesFilterStore = specialtiesFilter()
+  const specialtiesFilterValue = ref(specialtiesFilterStore.value)
   const selectDataSpecialties = ref([])
   const currentPageSpecialties = ref(1)
   const sizePageSpecialties = ref(25)
   const searchQuerySpecialties = ref('')
 
-  const organizationsFilterStore = useOrganizationsFilterStore()
-  const organizationsFilter = ref(organizationsFilterStore.value)
+  const organizationsFilterStore = organizationsFilter()
+  const organizationsFilterValue = ref(organizationsFilterStore.value)
   const selectDataOrganizations = ref([])
   const currentPageOrganizations = ref(1)
   const sizePageOrganizations = ref(25)
   const searchQueryOrganizations = ref('')
 
-  const territoriesFilterStore = useTerritoriesFilterStore()
-  const territoriesFilter = ref(territoriesFilterStore.value)
+  const territoriesFilterStore = territoriesFilter()
+  const territoriesFilterValue = ref(territoriesFilterStore.value)
   const selectDataTerritories = ref([])
   const currentPageTerritories = ref(1)
   const sizePageTerritories = ref(25)
   const searchQueryTerritories = ref('')
 
-  const stepsFilterStore = useStepsFilterStore()
-  const stepsFilter = ref(stepsFilterStore.value)
+  const stepsFilterStore = stepsFilter()
+  const stepsFilterValue = ref(stepsFilterStore.value)
   const selectDataSteps = ref([])
 
-  const trainingFormsFilterStore = useTrainingFormsFilterStore()
-  const trainingFormsFilter = ref(trainingFormsFilterStore.value)
+  const trainingFormsFilterStore = trainingFormsFilter()
+  const trainingFormsFilterValue = ref(trainingFormsFilterStore.value)
   const selectDataTrainingForms = ref([])
 
   const fetchDataIndicators = useFetchData({
@@ -101,33 +101,33 @@ export default function useFilterDataSources() {
 
   return {
     indicatorFilterStore,
-    indicatorFilter,
+    indicatorFilterValue,
     selectDataIndicators,
     currentPageIndicators,
     fetchDataIndicators,
     searchQueryIndicators,
 
     periodFilterStore,
-    periodFilter,
+    periodFilterValue,
     selectDataPeriods,
     fetchDataPeriods,
 
     specialtiesFilterStore,
-    specialtiesFilter,
+    specialtiesFilterValue,
     selectDataSpecialties,
     currentPageSpecialties,
     searchQuerySpecialties,
     fetchDataSpecialties,
 
     organizationsFilterStore,
-    organizationsFilter,
+    organizationsFilterValue,
     selectDataOrganizations,
     currentPageOrganizations,
     searchQueryOrganizations,
     fetchDataOrganizations,
 
     territoriesFilterStore,
-    territoriesFilter,
+    territoriesFilterValue,
     selectDataTerritories,
     currentPageTerritories,
     sizePageTerritories,
@@ -135,12 +135,12 @@ export default function useFilterDataSources() {
     fetchDataTerritories,
 
     stepsFilterStore,
-    stepsFilter,
+    stepsFilterValue,
     selectDataSteps,
     fetchDataSteps,
 
     trainingFormsFilterStore,
-    trainingFormsFilter,
+    trainingFormsFilterValue,
     selectDataTrainingForms,
     fetchDataTrainingForms
   }

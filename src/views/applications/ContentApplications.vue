@@ -21,11 +21,11 @@ import { defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import {
-  usePeriodFilterStore,
-  useSpecialtiesFilterStore,
-  useOrganizationsFilterStore,
-  useTrainingFormsFilterStore,
-  useRealFilterStore
+  periodFilter,
+  specialtiesFilter,
+  organizationsFilter,
+  trainingFormsFilter,
+  realFilter
 } from '@/stores/filterStoreFactory'
 import { Select, CloseBold } from '@element-plus/icons-vue'
 
@@ -38,11 +38,11 @@ export default defineComponent({
   },
   setup() {
     const filtersConfig = {
-      specialty_id: useSpecialtiesFilterStore(),
-      organization_id: useOrganizationsFilterStore(),
-      year: usePeriodFilterStore(),
-      training_form_id: useTrainingFormsFilterStore(),
-      real: useRealFilterStore()
+      specialty_id: specialtiesFilter(),
+      organization_id: organizationsFilter(),
+      year: periodFilter(),
+      training_form_id: trainingFormsFilter(),
+      real: realFilter()
     }
 
     const useBaseTableResult = useBaseTable(filtersConfig, 'getDataApplications')

@@ -25,7 +25,7 @@
 import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-import { useUploadedFilterStore } from '@/stores/filterStoreFactory'
+import { uploadedFilter } from '@/stores/filterStoreFactory'
 import useFilterDataSources from '@/use/useFilterDataSources'
 import { Section } from '@/types/types'
 
@@ -38,30 +38,30 @@ export default defineComponent({
   setup() {
     const {
       indicatorFilterStore,
-      indicatorFilter,
+      indicatorFilterValue,
       selectDataIndicators,
       currentPageIndicators,
       fetchDataIndicators,
       searchQueryIndicators,
 
       periodFilterStore,
-      periodFilter,
+      periodFilterValue,
       selectDataPeriods,
       fetchDataPeriods,
 
       stepsFilterStore,
-      stepsFilter,
+      stepsFilterValue,
       selectDataSteps,
       fetchDataSteps,
 
       trainingFormsFilterStore,
-      trainingFormsFilter,
+      trainingFormsFilterValue,
       selectDataTrainingForms,
       fetchDataTrainingForms
     } = useFilterDataSources()
 
-    const uploadedFilterStore = useUploadedFilterStore()
-    const uploadedFilter = ref(uploadedFilterStore.value)
+    const uploadedFilterStore = uploadedFilter()
+    const uploadedFilterValue = ref(uploadedFilterStore.value)
     const selectDataUploaded = ref<{ id: string, name: string, icon?: string }[]>([
       { id: 'Все', name: 'Все' },
       { id: '1', name: 'True', icon: `Select` },
@@ -71,7 +71,7 @@ export default defineComponent({
     const sections = ref<Section[]>([
       {
         title: 'Показатель',
-        filter: indicatorFilter,
+        filter: indicatorFilterValue,
         selectData: selectDataIndicators,
         currentPage: currentPageIndicators,
         store: indicatorFilterStore,
@@ -82,7 +82,7 @@ export default defineComponent({
       },
       {
         title: 'Год',
-        filter: periodFilter,
+        filter: periodFilterValue,
         selectData: selectDataPeriods,
         store: periodFilterStore,
         fetchDataFunc: fetchDataPeriods,
@@ -90,7 +90,7 @@ export default defineComponent({
       },
       {
         title: 'Шаг расчета',
-        filter: stepsFilter,
+        filter: stepsFilterValue,
         selectData: selectDataSteps,
         store: stepsFilterStore,
         fetchDataFunc: fetchDataSteps,
@@ -98,7 +98,7 @@ export default defineComponent({
       },
       {
         title: 'Статус',
-        filter: uploadedFilter,
+        filter: uploadedFilterValue,
         selectData: selectDataUploaded,
         store: uploadedFilterStore,
         fetchDataFunc: null,
@@ -108,7 +108,7 @@ export default defineComponent({
 
       {
         title: 'Форма обучения',
-        filter: trainingFormsFilter,
+        filter: trainingFormsFilterValue,
         selectData: selectDataTrainingForms,
         store: trainingFormsFilterStore,
         fetchDataFunc: fetchDataTrainingForms,

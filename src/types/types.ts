@@ -1,10 +1,14 @@
+import { Ref } from 'vue'
+import { StoreType } from '@/stores/filterStoreFactory';
+
+
 export interface Section {
     title: string;
-    filter: any; // Рекомендуется уточнить тип
-    selectData: any[]; // Рекомендуется уточнить тип
-    currentPage?: number;
-    store: any; // Рекомендуется уточнить тип
-    searchQuery?: string;
+    filter: any;
+    selectData: any[] | Ref<any[]>;
+    currentPage?: number | Ref<number>;
+    store: StoreType;
+    searchQuery?: Ref<string> | string;
     fetchDataFunc?: Function | null;
     isName?: boolean;
     tooltip?: boolean;
@@ -12,4 +16,3 @@ export interface Section {
     staticData?: boolean;
     label?: string;
 }
-

@@ -14,10 +14,10 @@ import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import { useSearchFilterStore } from '@/stores/searchFilter'
 import {
-  useTerritoriesFilterStore,
-  useTerritoriesParentFilterStore,
-  useTerritoriesTypesFilterStore,
-  useTerritoriesGroupFilterStore
+  territoriesFilter,
+  territoriesParentFilter,
+  territoriesTypesFilter,
+  territoriesGroupFilter
 } from '@/stores/filterStoreFactory'
 
 export default defineComponent({
@@ -28,10 +28,10 @@ export default defineComponent({
   setup() {
     const searchFilterStore = useSearchFilterStore()
     const filtersConfig = {
-      group_id: useTerritoriesGroupFilterStore(),
-      type_id: useTerritoriesTypesFilterStore(),
-      parent_id: useTerritoriesParentFilterStore(),
-      id: useTerritoriesFilterStore(),
+      group_id: territoriesGroupFilter(),
+      type_id: territoriesTypesFilter(),
+      parent_id: territoriesParentFilter(),
+      id: territoriesFilter(),
       search: computed(() => searchFilterStore.debouncedSearch)
     }
 

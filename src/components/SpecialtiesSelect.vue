@@ -24,7 +24,7 @@
 import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-import { useEducationLevelsFilterStore, useSpecialtiesClassifiersFilterStore } from '@/stores/filterStoreFactory'
+import { educationLevelsFilter, specialtiesClassifiersFilter } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 import { Section } from '@/types/types'
@@ -36,12 +36,12 @@ export default defineComponent({
     BaseSelect
   },
   setup() {
-    const educationLevelsFilterStore = useEducationLevelsFilterStore()
-    const educationLevelsFilter = ref(educationLevelsFilterStore.value)
+    const educationLevelsFilterStore = educationLevelsFilter()
+    const educationLevelsFilterValue = ref(educationLevelsFilterStore.value)
     const selectDataEducationLevels = ref<any[]>([])
 
-    const specialtiesClassifiersFilterStore = useSpecialtiesClassifiersFilterStore()
-    const specialtiesClassifiersFilter = ref(specialtiesClassifiersFilterStore.value)
+    const specialtiesClassifiersFilterStore = specialtiesClassifiersFilter()
+    const specialtiesClassifiersFilterValue = ref(specialtiesClassifiersFilterStore.value)
     const selectDataSpecialtiesClassifiers = ref<any[]>([])
 
     const fetchDataEducationLevels = useFetchData({
@@ -56,7 +56,7 @@ export default defineComponent({
     const sections = ref<Section[]>([
       {
         title: 'Уровень образования',
-        filter: educationLevelsFilter,
+        filter: educationLevelsFilterValue,
         selectData: selectDataEducationLevels,
         store: educationLevelsFilterStore,
         fetchDataFunc: fetchDataEducationLevels,
@@ -64,7 +64,7 @@ export default defineComponent({
       },
       {
         title: 'Классификатор',
-        filter: specialtiesClassifiersFilter,
+        filter: specialtiesClassifiersFilterValue,
         selectData: selectDataSpecialtiesClassifiers,
         store: specialtiesClassifiersFilterStore,
         fetchDataFunc: fetchDataSpecialtiesClassifiers,

@@ -1,15 +1,19 @@
-import { defineStore } from 'pinia'
+import { defineStore, Store } from 'pinia'
 
-function createStore(id) {
+type ValueInput = {
+  [key: string]: string | number;
+};
+
+function createStore(id: string) {
   const key = id
 
   return defineStore({
     id,
     state: () => ({
-      value: JSON.parse(localStorage.getItem(key)) || ''
+      value: typeof localStorage.getItem(key) === "string" ? JSON.parse(localStorage.getItem(key) as string) : ''
     }),
     actions: {
-      set(value) {
+      set(value: ValueInput) {
         this.value = value
         localStorage.setItem(key, JSON.stringify(value))
       },
@@ -21,20 +25,50 @@ function createStore(id) {
   })
 }
 
-export const useTerritoriesFilterStore = createStore('territoriesFilter')
-export const useTerritoriesTypesFilterStore = createStore('territoriesTypesFilter')
-export const useTerritoriesGroupFilterStore = createStore('territoriesGroupFilter')
-export const useTerritoriesParentFilterStore = createStore('territoriesParentFilter')
-export const useIndicatorFilterStore = createStore('indicatorFilter')
-export const usePeriodFilterStore = createStore('periodFilter')
-export const useSpecialtiesFilterStore = createStore('specialtiesFilter')
-export const useOrganizationsFilterStore = createStore('organizationsFilter')
-export const useStepsFilterStore = createStore('stepsFilter')
-export const useStatusesFilterStore = createStore('statusesFilter')
-export const useTrainingFormsFilterStore = createStore('trainingFormsFilter')
-export const useUploadedFilterStore = createStore('uploadedFilter')
-export const useRealFilterStore = createStore('realFilter')
-export const useEducationLevelsFilterStore = createStore('educationLevelsFilter')
-export const useSpecialtiesClassifiersFilterStore = createStore('specialtiesClassifiersFilter')
-export const useOrganizationsHeadFilterStore = createStore('organizationsHeadFilter')
-export const useOrganizationsTypesFilterStore = createStore('organizationsTypesFilter')
+export const territoriesFilter = createStore('territoriesFilter')
+export const territoriesTypesFilter = createStore('territoriesTypesFilter')
+export const territoriesGroupFilter = createStore('territoriesGroupFilter')
+export const territoriesParentFilter = createStore('territoriesParentFilter')
+export const indicatorFilter = createStore('indicatorFilter')
+export const periodFilter = createStore('periodFilter')
+export const specialtiesFilter = createStore('specialtiesFilter')
+export const organizationsFilter = createStore('organizationsFilter')
+export const stepsFilter = createStore('stepsFilter')
+export const statusesFilter = createStore('statusesFilter')
+export const trainingFormsFilter = createStore('trainingFormsFilter')
+export const uploadedFilter = createStore('uploadedFilter')
+export const realFilter = createStore('realFilter')
+export const educationLevelsFilter = createStore('educationLevelsFilter')
+export const specialtiesClassifiersFilter = createStore('specialtiesClassifiersFilter')
+export const organizationsHeadFilter = createStore('organizationsHeadFilter')
+export const organizationsTypesFilter = createStore('organizationsTypesFilter')
+
+
+export type FilterStoreKeys = 
+  | 'territoriesFilter'
+  | 'territoriesTypesFilter'
+  | 'territoriesGroupFilter'
+  | 'territoriesParentFilter'
+  | 'indicatorFilter'
+  | 'periodFilter'
+  | 'specialtiesFilter'
+  | 'organizationsFilter'
+  | 'stepsFilter'
+  | 'statusesFilter'
+  | 'trainingFormsFilter'
+  | 'uploadedFilter'
+  | 'realFilter'
+  | 'educationLevelsFilter'
+  | 'specialtiesClassifiersFilter'
+  | 'organizationsHeadFilter'
+  | 'organizationsTypesFilter';
+
+
+type StoreType = Store<string, {
+  value: ValueInput;
+}, {}, {
+  set(value: ValueInput): void;
+  resetState(): void;
+}>
+
+export type { StoreType }

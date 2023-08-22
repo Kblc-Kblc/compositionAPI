@@ -26,7 +26,7 @@ import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
 import useFilterDataSources from '@/use/useFilterDataSources'
-import { useStatusesFilterStore } from '@/stores/filterStoreFactory'
+import { statusesFilter } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 import { Section } from '@/types/types'
@@ -40,51 +40,51 @@ export default defineComponent({
   setup() {
     const {
       indicatorFilterStore,
-      indicatorFilter,
+      indicatorFilterValue,
       selectDataIndicators,
       currentPageIndicators,
       fetchDataIndicators,
       searchQueryIndicators,
 
       periodFilterStore,
-      periodFilter,
+      periodFilterValue,
       selectDataPeriods,
       fetchDataPeriods,
 
       specialtiesFilterStore,
-      specialtiesFilter,
+      specialtiesFilterValue,
       selectDataSpecialties,
       currentPageSpecialties,
       searchQuerySpecialties,
       fetchDataSpecialties,
 
       organizationsFilterStore,
-      organizationsFilter,
+      organizationsFilterValue,
       selectDataOrganizations,
       currentPageOrganizations,
       searchQueryOrganizations,
       fetchDataOrganizations,
 
       territoriesFilterStore,
-      territoriesFilter,
+      territoriesFilterValue,
       selectDataTerritories,
       currentPageTerritories,
       searchQueryTerritories,
       fetchDataTerritories,
 
       stepsFilterStore,
-      stepsFilter,
+      stepsFilterValue,
       selectDataSteps,
       fetchDataSteps,
 
       trainingFormsFilterStore,
-      trainingFormsFilter,
+      trainingFormsFilterValue,
       selectDataTrainingForms,
       fetchDataTrainingForms
     } = useFilterDataSources()
 
-    const statusesFilterStore = useStatusesFilterStore()
-    const statusesFilter = ref(statusesFilterStore.value)
+    const statusesFilterStore = statusesFilter()
+    const statusesFilterValue = ref(statusesFilterStore.value)
     const selectDataStatuses = ref<any[]>([])
 
     const fetchDataStatuses = useFetchData({
@@ -95,7 +95,7 @@ export default defineComponent({
     const sections = ref<Section[]>([
       {
         title: 'Показатель',
-        filter: indicatorFilter,
+        filter: indicatorFilterValue,
         selectData: selectDataIndicators,
         currentPage: currentPageIndicators,
         store: indicatorFilterStore,
@@ -106,7 +106,7 @@ export default defineComponent({
       },
       {
         title: 'Год',
-        filter: periodFilter,
+        filter: periodFilterValue,
         selectData: selectDataPeriods,
         store: periodFilterStore,
         fetchDataFunc: fetchDataPeriods,
@@ -114,7 +114,7 @@ export default defineComponent({
       },
       {
         title: 'Специальность',
-        filter: specialtiesFilter,
+        filter: specialtiesFilterValue,
         selectData: selectDataSpecialties,
         currentPage: currentPageSpecialties,
         store: specialtiesFilterStore,
@@ -125,7 +125,7 @@ export default defineComponent({
       },
       {
         title: 'Организация',
-        filter: organizationsFilter,
+        filter: organizationsFilterValue,
         selectData: selectDataOrganizations,
         currentPage: currentPageOrganizations,
         store: organizationsFilterStore,
@@ -136,7 +136,7 @@ export default defineComponent({
       },
       {
         title: 'Территория',
-        filter: territoriesFilter,
+        filter: territoriesFilterValue,
         selectData: selectDataTerritories,
         currentPage: currentPageTerritories,
         store: territoriesFilterStore,
@@ -147,7 +147,7 @@ export default defineComponent({
       },
       {
         title: 'Шаг расчета',
-        filter: stepsFilter,
+        filter: stepsFilterValue,
         selectData: selectDataSteps,
         store: stepsFilterStore,
         fetchDataFunc: fetchDataSteps,
@@ -155,7 +155,7 @@ export default defineComponent({
       },
       {
         title: 'Статус',
-        filter: statusesFilter,
+        filter: statusesFilterValue,
         selectData: selectDataStatuses,
         store: statusesFilterStore,
         fetchDataFunc: fetchDataStatuses,
@@ -163,7 +163,7 @@ export default defineComponent({
       },
       {
         title: 'Форма обучения',
-        filter: trainingFormsFilter,
+        filter: trainingFormsFilterValue,
         selectData: selectDataTrainingForms,
         store: trainingFormsFilterStore,
         fetchDataFunc: fetchDataTrainingForms,

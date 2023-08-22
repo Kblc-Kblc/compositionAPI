@@ -18,11 +18,11 @@ import { defineComponent } from 'vue'
 import useBaseTable from '@/use/useBaseTable'
 import BaseTable from '@/components/BaseTable.vue'
 import {
-  useIndicatorFilterStore,
-  useTrainingFormsFilterStore,
-  usePeriodFilterStore,
-  useStepsFilterStore,
-  useUploadedFilterStore
+  indicatorFilter,
+  trainingFormsFilter,
+  periodFilter,
+  stepsFilter,
+  uploadedFilter
 } from '@/stores/filterStoreFactory'
 import { Select, CloseBold } from '@element-plus/icons-vue'
 
@@ -35,11 +35,11 @@ export default defineComponent({
   },
   setup() {
     const filtersConfig = {
-      indicator_id: useIndicatorFilterStore(),
-      year: usePeriodFilterStore(),
-      step_id: useStepsFilterStore(),
-      uploaded: useUploadedFilterStore(),
-      training_form_id: useTrainingFormsFilterStore()
+      indicator_id: indicatorFilter(),
+      year: periodFilter(),
+      step_id: stepsFilter(),
+      uploaded: uploadedFilter(),
+      training_form_id: trainingFormsFilter()
     }
 
     const useBaseTableResult = useBaseTable(filtersConfig, 'getDataStates')

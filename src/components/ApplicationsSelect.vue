@@ -25,7 +25,7 @@
 import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-import { useRealFilterStore } from '@/stores/filterStoreFactory'
+import { realFilter } from '@/stores/filterStoreFactory'
 import useFilterDataSources from '@/use/useFilterDataSources'
 import { Section } from '@/types/types'
 
@@ -37,42 +37,42 @@ export default defineComponent({
   setup() {
     const {
       periodFilterStore,
-      periodFilter,
+      periodFilterValue,
       selectDataPeriods,
       fetchDataPeriods,
 
       specialtiesFilterStore,
-      specialtiesFilter,
+      specialtiesFilterValue,
       selectDataSpecialties,
       currentPageSpecialties,
       searchQuerySpecialties,
       fetchDataSpecialties,
 
       organizationsFilterStore,
-      organizationsFilter,
+      organizationsFilterValue,
       selectDataOrganizations,
       currentPageOrganizations,
       searchQueryOrganizations,
       fetchDataOrganizations,
 
       trainingFormsFilterStore,
-      trainingFormsFilter,
+      trainingFormsFilterValue,
       selectDataTrainingForms,
       fetchDataTrainingForms
     } = useFilterDataSources()
 
-    const realFilterStore = useRealFilterStore()
-    const realFilter = ref<any>(realFilterStore.value) //!заменить 'any' на более конкретный тип
+    const realFilterStore = realFilter()
+    const realFilterValue = ref<any>(realFilterStore.value)
     const selectDataReal = ref<any[]>([
       { id: 'Все', name: 'Все' },
       { id: '1', name: 'True', icon: `Select` },
       { id: '0', name: 'False', icon: `CloseBold` }
-    ]) //!заменить 'any' на более конкретный тип
+    ])
 
     const sections = ref<Section[]>([
       {
         title: 'Специальность',
-        filter: specialtiesFilter,
+        filter: specialtiesFilterValue,
         selectData: selectDataSpecialties,
         currentPage: currentPageSpecialties,
         store: specialtiesFilterStore,
@@ -83,7 +83,7 @@ export default defineComponent({
       },
       {
         title: 'Организация',
-        filter: organizationsFilter,
+        filter: organizationsFilterValue,
         selectData: selectDataOrganizations,
         currentPage: currentPageOrganizations,
         store: organizationsFilterStore,
@@ -94,7 +94,7 @@ export default defineComponent({
       },
       {
         title: 'Год',
-        filter: periodFilter,
+        filter: periodFilterValue,
         selectData: selectDataPeriods,
         store: periodFilterStore,
         fetchDataFunc: fetchDataPeriods,
@@ -102,7 +102,7 @@ export default defineComponent({
       },
       {
         title: 'Форма обучения',
-        filter: trainingFormsFilter,
+        filter: trainingFormsFilterValue,
         selectData: selectDataTrainingForms,
         store: trainingFormsFilterStore,
         fetchDataFunc: fetchDataTrainingForms,
@@ -110,7 +110,7 @@ export default defineComponent({
       },
       {
         title: 'Настоящая',
-        filter: realFilter,
+        filter: realFilterValue,
         selectData: selectDataReal,
         store: realFilterStore,
         fetchDataFunc: null,

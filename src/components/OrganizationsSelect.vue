@@ -26,7 +26,7 @@ import { defineComponent, ref } from 'vue';
 import BaseSelect from '@/components/BaseSelect.vue';
 import useFilterControls from '@/use/useFilterControls';
 
-import { useOrganizationsHeadFilterStore, useOrganizationsTypesFilterStore } from '@/stores/filterStoreFactory';
+import { organizationsHeadFilter, organizationsTypesFilter } from '@/stores/filterStoreFactory';
 import api from '@/api/index';
 import { useFetchData } from '@/use/useFetchData';
 import useFilterDataSources from '@/use/useFilterDataSources';
@@ -42,29 +42,29 @@ export default defineComponent({
   setup() {
     const {
       organizationsFilterStore,
-      organizationsFilter,
+      organizationsFilterValue,
       selectDataOrganizations,
       currentPageOrganizations,
       searchQueryOrganizations,
       fetchDataOrganizations,
 
       territoriesFilterStore,
-      territoriesFilter,
+      territoriesFilterValue,
       selectDataTerritories,
       currentPageTerritories,
       searchQueryTerritories,
       fetchDataTerritories
     } = useFilterDataSources()
 
-    const organizationsHeadFilterStore = useOrganizationsHeadFilterStore();
-    const organizationsHeadFilter = ref(organizationsHeadFilterStore.value);
+    const organizationsHeadFilterStore = organizationsHeadFilter();
+    const organizationsHeadFilterValue = ref(organizationsHeadFilterStore.value);
     const selectDataOrganizationsHead = ref<any[]>([]);
     const currentPageOrganizationsHead = ref<number>(1);
     const sizePageOrganizationsHead = ref<number>(25);
     const searchQueryOrganizationsHead = ref<string>('');
 
-    const organizationsTypesFilterStore = useOrganizationsTypesFilterStore();
-    const organizationsTypesFilter = ref(organizationsTypesFilterStore.value);
+    const organizationsTypesFilterStore = organizationsTypesFilter();
+    const organizationsTypesFilterValue = ref(organizationsTypesFilterStore.value);
     const selectDataOrganizationsTypes = ref<any[]>([]);
 
     const fetchDataOrganizationsHead = useFetchData({
@@ -83,7 +83,7 @@ export default defineComponent({
     const sections = ref<Section[]>([
       {
         title: 'ID',
-        filter: organizationsFilter,
+        filter: organizationsFilterValue,
         selectData: selectDataOrganizations,
         currentPage: currentPageOrganizations,
         store: organizationsFilterStore,
@@ -94,7 +94,7 @@ export default defineComponent({
       },
       {
         title: 'ID головы',
-        filter: organizationsHeadFilter,
+        filter: organizationsHeadFilterValue,
         selectData: selectDataOrganizationsHead,
         currentPage: currentPageOrganizationsHead,
         store: organizationsHeadFilterStore,
@@ -105,7 +105,7 @@ export default defineComponent({
       },
       {
         title: 'Тип',
-        filter: organizationsTypesFilter,
+        filter: organizationsTypesFilterValue,
         selectData: selectDataOrganizationsTypes,
         store: organizationsTypesFilterStore,
         fetchDataFunc: fetchDataOrganizationsTypes,
@@ -114,7 +114,7 @@ export default defineComponent({
       },
       {
         title: 'Территория',
-        filter: territoriesFilter,
+        filter: territoriesFilterValue,
         selectData: selectDataTerritories,
         currentPage: currentPageTerritories,
         store: territoriesFilterStore,
