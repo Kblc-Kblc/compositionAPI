@@ -1,9 +1,37 @@
-import { ref } from 'vue'
+import { ref, Ref } from 'vue'
 
-export function useFetchData({ apiCall, selectData, currentPage = ref(1), pageSize = ref(25), searchQuery = ref('') }) {
+interface ApiCallParams {
+  page: number;
+  per_page: number;
+  search: string;
+}
+
+interface ApiResponseData {
+  description?: string;
+  id: string;
+  name: string;
+  type_id?: string;
+}
+
+interface ApiCallFunction {
+  (params: ApiCallParams): Promise<{ data: { data: ApiResponseData[] } }>;
+}
+
+interface UseFetchDataParams {
+  apiCall: ApiCallFunction;
+  selectData: Ref<ApiResponseData[]>;
+  currentPage?: Ref<number>;
+  pageSize?: Ref<number>;
+  searchQuery?: Ref<string>;
+}
+
+
+export function useFetchData(params: UseFetchDataParams) {
+  const { apiCall, selectData, currentPage = ref(1), pageSize = ref(25), searchQuery = ref('') } = params;
+
   const loading = ref(false)
 
-  const prependAllOption = (data) => {
+  const prependAllOption = (data: ApiResponseData[]) => {
     const allItem = data.find((item) => item.id === 'Все')
     if (!allItem) {
       data.unshift({

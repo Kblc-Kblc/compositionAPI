@@ -10,7 +10,7 @@
         :store-id="section.store"
         :searchable="section.searchable"
         class="select-wrapper"
-        @search-value="(e) => searchValue(e, section)"
+        @search-value="(e: string) => searchValue(e, section)"
         @load-more-data="() => loadMoreData(section)"
         @update-store="handleUpdateStore"
         @close-select="() => closeSelect(section)"
@@ -74,7 +74,7 @@ export default defineComponent({
     ])
 
     const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections)
+      useFilterControls(sections.value)
 
     return {
       loading,
