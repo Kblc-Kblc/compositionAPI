@@ -119,8 +119,9 @@ export default defineComponent({
       }
     ])
 
-    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections.value)
+    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } = useFilterControls(
+      sections.value
+    )
 
     return {
       loading,

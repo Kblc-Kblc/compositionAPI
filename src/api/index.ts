@@ -12,12 +12,12 @@ function api() {
   })
 
   api.interceptors.request.use((config) => {
-    const authStore = useAuthStore();
+    const authStore = useAuthStore()
     if (!config.headers) {
-      config.headers = {};
+      config.headers = {}
     }
-    config.headers.Authorization = 'Bearer ' + authStore.token;
-    return config;
+    config.headers.Authorization = 'Bearer ' + authStore.token
+    return config
   })
 
   api.interceptors.response.use(

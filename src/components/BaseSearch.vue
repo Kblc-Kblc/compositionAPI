@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import { Search } from '@element-plus/icons-vue';
+import { defineComponent, PropType } from 'vue'
+import { Search } from '@element-plus/icons-vue'
 
 export default defineComponent({
   name: 'BaseSearch',
@@ -17,22 +17,21 @@ export default defineComponent({
   },
   props: {
     modelValue: String as PropType<string>,
-      resetSearch: Function as PropType<() => void>,
+    resetSearch: Function as PropType<() => void>,
     placeholder: String as PropType<string>
   },
   watch: {
     resetSearch: {
       handler() {
-        this.$emit('update:modelValue', '');
+        this.$emit('update:modelValue', '')
       },
       immediate: true
     }
   },
   methods: {
     updateSearch(newSearch: string) {
-      this.$emit('update:modelValue', newSearch);
+      this.$emit('update:modelValue', newSearch)
     }
   }
-});
+})
 </script>
-

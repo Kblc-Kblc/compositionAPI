@@ -29,7 +29,6 @@ import { uploadedFilter } from '@/stores/filterStoreFactory'
 import useFilterDataSources from '@/use/useFilterDataSources'
 import { Section } from '@/types/types'
 
-
 export default defineComponent({
   name: 'StatusIndicatorsSelect',
   components: {
@@ -62,7 +61,7 @@ export default defineComponent({
 
     const uploadedFilterStore = uploadedFilter()
     const uploadedFilterValue = ref(uploadedFilterStore.value)
-    const selectDataUploaded = ref<{ id: string, name: string, icon?: string }[]>([
+    const selectDataUploaded = ref<{ id: string; name: string; icon?: string }[]>([
       { id: 'Все', name: 'Все' },
       { id: '1', name: 'True', icon: `Select` },
       { id: '0', name: 'False', icon: `CloseBold` }
@@ -116,8 +115,9 @@ export default defineComponent({
       }
     ])
 
-    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections.value)
+    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } = useFilterControls(
+      sections.value
+    )
 
     return {
       loading,

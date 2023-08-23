@@ -1,8 +1,8 @@
 import { defineStore, Store } from 'pinia'
 
 type ValueInput = {
-  [key: string]: string | number;
-};
+  [key: string]: string | number
+}
 
 function createStore(id: string) {
   const key = id
@@ -10,7 +10,7 @@ function createStore(id: string) {
   return defineStore({
     id,
     state: () => ({
-      value: typeof localStorage.getItem(key) === "string" ? JSON.parse(localStorage.getItem(key) as string) : ''
+      value: typeof localStorage.getItem(key) === 'string' ? JSON.parse(localStorage.getItem(key) as string) : ''
     }),
     actions: {
       set(value: ValueInput) {
@@ -43,8 +43,7 @@ export const specialtiesClassifiersFilter = createStore('specialtiesClassifiersF
 export const organizationsHeadFilter = createStore('organizationsHeadFilter')
 export const organizationsTypesFilter = createStore('organizationsTypesFilter')
 
-
-export type FilterStoreKeys = 
+export type FilterStoreKeys =
   | 'territoriesFilter'
   | 'territoriesTypesFilter'
   | 'territoriesGroupFilter'
@@ -61,14 +60,18 @@ export type FilterStoreKeys =
   | 'educationLevelsFilter'
   | 'specialtiesClassifiersFilter'
   | 'organizationsHeadFilter'
-  | 'organizationsTypesFilter';
+  | 'organizationsTypesFilter'
 
-
-type StoreType = Store<string, {
-  value: ValueInput;
-}, {}, {
-  set(value: ValueInput): void;
-  resetState(): void;
-}>
+type StoreType = Store<
+  string,
+  {
+    value: ValueInput
+  },
+  {},
+  {
+    set(value: ValueInput): void
+    resetState(): void
+  }
+>
 
 export type { StoreType }

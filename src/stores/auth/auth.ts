@@ -13,7 +13,7 @@ export const useAuthStore = defineStore({
         this.token = response.data.token
         if (this.token) {
           localStorage.setItem('api_token', this.token)
-      }
+        }
       } catch (error) {
         console.error(error)
         throw error

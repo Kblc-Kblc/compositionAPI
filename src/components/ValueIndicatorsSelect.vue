@@ -31,7 +31,6 @@ import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 import { Section } from '@/types/types'
 
-
 export default defineComponent({
   name: 'ValueIndicatorsSelect',
   components: {
@@ -171,8 +170,9 @@ export default defineComponent({
       }
     ])
 
-    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections.value)
+    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } = useFilterControls(
+      sections.value
+    )
 
     return {
       loading,

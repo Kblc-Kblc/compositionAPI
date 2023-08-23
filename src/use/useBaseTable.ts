@@ -3,28 +3,29 @@ import api from '@/api/index'
 
 type FilterConfig = {
   [key: string]: {
-    value: {
-      id?: string | number;
-    } | string;
-  };
-};
-
+    value:
+      | {
+          id?: string | number
+        }
+      | string
+  }
+}
 
 type FetchDataParams = {
-  currentPage: number;
-  pageSize: number;
+  currentPage: number
+  pageSize: number
   sort?: {
-    sort_by?: string;
-    sort_desc?: number;
-  };
-};
+    sort_by?: string
+    sort_desc?: number
+  }
+}
 
 type SortChangeParams = {
-  prop: string;
-  order: 'ascending' | 'descending';
-};
+  prop: string
+  order: 'ascending' | 'descending'
+}
 
-type APIMethods = keyof typeof api.dataTable;
+type APIMethods = keyof typeof api.dataTable
 
 export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: APIMethods) {
   const tableData = ref([])
@@ -38,7 +39,7 @@ export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: API
       return computed(() => (filter.value as { id?: string | number }).id || '')
     }
     return computed(() => '')
-  });
+  })
 
   const handleSortChange = ({ prop, order }: SortChangeParams) => {
     const sortDesc = order === 'ascending' ? 0 : 1

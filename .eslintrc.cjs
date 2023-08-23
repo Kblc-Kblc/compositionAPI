@@ -5,8 +5,10 @@ module.exports = {
   root: true,
   extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', '@vue/eslint-config-prettier'],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    parser: '@typescript-eslint/parser'
   },
+  plugins: ['@typescript-eslint'],
   rules: {
     'vue/multi-word-component-names': 'off',
     'vue/max-attributes-per-line': 'off',

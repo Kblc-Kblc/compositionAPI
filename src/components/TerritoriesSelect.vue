@@ -24,16 +24,11 @@
 import { defineComponent, ref } from 'vue'
 import BaseSelect from '@/components/BaseSelect.vue'
 import useFilterControls from '@/use/useFilterControls'
-import {
-  territoriesParentFilter,
-  territoriesTypesFilter,
-  territoriesGroupFilter
-} from '@/stores/filterStoreFactory'
+import { territoriesParentFilter, territoriesTypesFilter, territoriesGroupFilter } from '@/stores/filterStoreFactory'
 import api from '@/api/index'
 import { useFetchData } from '@/use/useFetchData'
 import useFilterDataSources from '@/use/useFilterDataSources'
 import { Section } from '@/types/types'
-
 
 export default defineComponent({
   name: 'TerritoriesSelect',
@@ -135,8 +130,9 @@ export default defineComponent({
       }
     ])
 
-    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections.value)
+    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } = useFilterControls(
+      sections.value
+    )
 
     return {
       loading,

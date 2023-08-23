@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, PropType } from 'vue';
-import Pagination from '@/components/Pagination.vue';
+import { ref, defineComponent, PropType } from 'vue'
+import Pagination from '@/components/Pagination.vue'
 
 export default defineComponent({
   name: 'BaseTable',
@@ -45,21 +45,21 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const currentPage = ref(1);
-    const pageSize = ref(25);
+    const currentPage = ref(1)
+    const pageSize = ref(25)
 
     const handleSizeChange = (newSize: number) => {
-      pageSize.value = newSize;
-      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value });
+      pageSize.value = newSize
+      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value })
     }
 
     const handleCurrentChange = (newCurrentPage: number) => {
-      currentPage.value = newCurrentPage;
-      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value });
+      currentPage.value = newCurrentPage
+      emit('fetch-data', { currentPage: currentPage.value, pageSize: pageSize.value })
     }
 
     const handleSortChange = ({ prop, order }: { prop: string; order: string }) => {
-      emit('sort', { prop, order });
+      emit('sort', { prop, order })
     }
 
     return {
@@ -70,9 +70,8 @@ export default defineComponent({
       handleSortChange
     }
   }
-});
+})
 </script>
-
 
 <style scoped>
 .table-wrapper {

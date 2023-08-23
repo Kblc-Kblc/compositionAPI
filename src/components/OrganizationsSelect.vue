@@ -22,16 +22,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import BaseSelect from '@/components/BaseSelect.vue';
-import useFilterControls from '@/use/useFilterControls';
+import { defineComponent, ref } from 'vue'
+import BaseSelect from '@/components/BaseSelect.vue'
+import useFilterControls from '@/use/useFilterControls'
 
-import { organizationsHeadFilter, organizationsTypesFilter } from '@/stores/filterStoreFactory';
-import api from '@/api/index';
-import { useFetchData } from '@/use/useFetchData';
-import useFilterDataSources from '@/use/useFilterDataSources';
+import { organizationsHeadFilter, organizationsTypesFilter } from '@/stores/filterStoreFactory'
+import api from '@/api/index'
+import { useFetchData } from '@/use/useFetchData'
+import useFilterDataSources from '@/use/useFilterDataSources'
 import { Section } from '@/types/types'
-
 
 export default defineComponent({
   name: 'OrganizationsSelect',
@@ -56,16 +55,16 @@ export default defineComponent({
       fetchDataTerritories
     } = useFilterDataSources()
 
-    const organizationsHeadFilterStore = organizationsHeadFilter();
-    const organizationsHeadFilterValue = ref(organizationsHeadFilterStore.value);
-    const selectDataOrganizationsHead = ref<any[]>([]);
-    const currentPageOrganizationsHead = ref<number>(1);
-    const sizePageOrganizationsHead = ref<number>(25);
-    const searchQueryOrganizationsHead = ref<string>('');
+    const organizationsHeadFilterStore = organizationsHeadFilter()
+    const organizationsHeadFilterValue = ref(organizationsHeadFilterStore.value)
+    const selectDataOrganizationsHead = ref<any[]>([])
+    const currentPageOrganizationsHead = ref<number>(1)
+    const sizePageOrganizationsHead = ref<number>(25)
+    const searchQueryOrganizationsHead = ref<string>('')
 
-    const organizationsTypesFilterStore = organizationsTypesFilter();
-    const organizationsTypesFilterValue = ref(organizationsTypesFilterStore.value);
-    const selectDataOrganizationsTypes = ref<any[]>([]);
+    const organizationsTypesFilterStore = organizationsTypesFilter()
+    const organizationsTypesFilterValue = ref(organizationsTypesFilterStore.value)
+    const selectDataOrganizationsTypes = ref<any[]>([])
 
     const fetchDataOrganizationsHead = useFetchData({
       apiCall: api.dataSelect.getOrganizationsHead,
@@ -125,8 +124,9 @@ export default defineComponent({
       }
     ])
 
-    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } =
-      useFilterControls(sections.value)
+    const { loading, closeSelect, searchValue, loadMoreData, handleUpdateStore, handleOpenSelect } = useFilterControls(
+      sections.value
+    )
 
     return {
       loading,

@@ -1,18 +1,17 @@
 import { ref } from 'vue'
 import * as allFilterStores from '@/stores/filterStoreFactory'
-const filterStores: Record<FilterStoreKeys, () => StoreType> = allFilterStores;
+const filterStores: Record<FilterStoreKeys, () => StoreType> = allFilterStores
 import { Section } from '@/types/types'
-import { StoreType, FilterStoreKeys } from '@/stores/filterStoreFactory';
+import { StoreType, FilterStoreKeys } from '@/stores/filterStoreFactory'
 
 type EType = {
-  [key: string]: string | number;
-};
+  [key: string]: string | number
+}
 
 type HandleUpdateStoreParams = {
-  e: EType;
-  storeId: StoreType & { $id: FilterStoreKeys };
-};
-
+  e: EType
+  storeId: StoreType & { $id: FilterStoreKeys }
+}
 
 export default function useFilterControls(sections: Section[]) {
   const loading = ref(false)
@@ -26,39 +25,38 @@ export default function useFilterControls(sections: Section[]) {
   }
 
   const searchValue = (e: string, section: Section) => {
-    section.selectData = []    
+    section.selectData = []
     if (e != '') {
       section.currentPage = 1
       section.searchQuery = e
-      section.fetchDataFunc?.();
+      section.fetchDataFunc?.()
     }
   }
 
   const loadMoreData = (section: Section) => {
-    if (typeof section.currentPage === "object" && 'value' in section.currentPage) {
-        section.currentPage.value += 1;
-    } else if (typeof section.currentPage === "number") {
-        section.currentPage += 1;
+    if (typeof section.currentPage === 'object' && 'value' in section.currentPage) {
+      section.currentPage.value += 1
+    } else if (typeof section.currentPage === 'number') {
+      section.currentPage += 1
     }
-    section.fetchDataFunc?.();
-}
-
-
-const handleUpdateStore = ({ e, storeId }: HandleUpdateStoreParams) => {
-  let valueToUpdate = e
-
-  if (storeId.$id === 'periodFilter' && typeof e === 'number') {
-    valueToUpdate = { id: e }
+    section.fetchDataFunc?.()
   }
 
-  const store = filterStores[storeId.$id]()
+  const handleUpdateStore = ({ e, storeId }: HandleUpdateStoreParams) => {
+    let valueToUpdate = e
 
-  store.set(valueToUpdate)
-}
+    if (storeId.$id === 'periodFilter' && typeof e === 'number') {
+      valueToUpdate = { id: e }
+    }
+
+    const store = filterStores[storeId.$id]()
+
+    store.set(valueToUpdate)
+  }
 
   const handleOpenSelect = (section: Section) => {
     if (!section.staticData) {
-      section.fetchDataFunc?.();
+      section.fetchDataFunc?.()
     }
   }
 

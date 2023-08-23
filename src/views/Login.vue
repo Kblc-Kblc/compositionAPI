@@ -32,9 +32,8 @@ import { useRouter } from 'vue-router'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import { ElNotification } from 'element-plus'
 
-
 interface FormComponent {
-  validate: (callback: (valid: boolean) => void) => void;
+  validate: (callback: (valid: boolean) => void) => void
 }
 
 export default defineComponent({
@@ -75,25 +74,25 @@ export default defineComponent({
 
     const submitForm = async () => {
       if (formRef.value) {
-      formRef.value.validate(async (valid: boolean) => {
-        if (valid) {
-          try {
-            await auth.login({ email: form.value.email, password: form.value.password })
-            router.push('/value-indicators')
-          } catch {
-            errors.email = 'Неверный логин или пароль'
-            errors.password = 'Неверный логин или пароль'
+        formRef.value.validate(async (valid: boolean) => {
+          if (valid) {
+            try {
+              await auth.login({ email: form.value.email, password: form.value.password })
+              router.push('/value-indicators')
+            } catch {
+              errors.email = 'Неверный логин или пароль'
+              errors.password = 'Неверный логин или пароль'
+            }
+          } else {
+            ElNotification({
+              title: 'Ошибка',
+              message: 'Заполните поля',
+              type: 'error'
+            })
+            return false
           }
-        } else {
-          ElNotification({
-            title: 'Ошибка',
-            message: 'Заполните поля',
-            type: 'error'
-          })
-          return false
-        }
-      })
-    }
+        })
+      }
     }
 
     return {

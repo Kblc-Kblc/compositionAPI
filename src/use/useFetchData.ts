@@ -1,33 +1,32 @@
 import { ref, Ref } from 'vue'
 
 interface ApiCallParams {
-  page: number;
-  per_page: number;
-  search: string;
+  page: number
+  per_page: number
+  search: string
 }
 
 interface ApiResponseData {
-  description?: string;
-  id: string;
-  name: string;
-  type_id?: string;
+  description?: string
+  id: string
+  name: string
+  type_id?: string
 }
 
 interface ApiCallFunction {
-  (params: ApiCallParams): Promise<{ data: { data: ApiResponseData[] } }>;
+  (params: ApiCallParams): Promise<{ data: { data: ApiResponseData[] } }>
 }
 
 interface UseFetchDataParams {
-  apiCall: ApiCallFunction;
-  selectData: Ref<ApiResponseData[]>;
-  currentPage?: Ref<number>;
-  pageSize?: Ref<number>;
-  searchQuery?: Ref<string>;
+  apiCall: ApiCallFunction
+  selectData: Ref<ApiResponseData[]>
+  currentPage?: Ref<number>
+  pageSize?: Ref<number>
+  searchQuery?: Ref<string>
 }
 
-
 export function useFetchData(params: UseFetchDataParams) {
-  const { apiCall, selectData, currentPage = ref(1), pageSize = ref(25), searchQuery = ref('') } = params;
+  const { apiCall, selectData, currentPage = ref(1), pageSize = ref(25), searchQuery = ref('') } = params
 
   const loading = ref(false)
 
