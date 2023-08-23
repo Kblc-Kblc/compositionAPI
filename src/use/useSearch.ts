@@ -10,7 +10,7 @@ export default function useSearch() {
   }, 1500)
 
   const resetSearch = () => {
-    search.value = ''
+    search.setSearch('')
   }
 
   onBeforeRouteLeave(() => {

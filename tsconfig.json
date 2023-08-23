@@ -10,6 +10,7 @@
       "skipLibCheck": true,
       "lib": ["ESNext", "DOM"],
       "baseUrl": ".",
+      "types": ["vite/client"],
       "paths": {
         "@/*": ["src/*"]
       }

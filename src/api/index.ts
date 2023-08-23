@@ -12,9 +12,12 @@ function api() {
   })
 
   api.interceptors.request.use((config) => {
-    const authStore = useAuthStore()
-    config.headers.Authorization = 'Bearer ' + authStore.token
-    return config
+    const authStore = useAuthStore();
+    if (!config.headers) {
+      config.headers = {};
+    }
+    config.headers.Authorization = 'Bearer ' + authStore.token;
+    return config;
   })
 
   api.interceptors.response.use(
@@ -38,7 +41,7 @@ function api() {
 
 export default {
   auth: {
-    login: (email, password) => api().post('/auth/login', { email, password }),
+    login: (email: string, password: string) => api().post('/auth/login', { email, password }),
     me: (data = {}) => api().get('/auth/me', data),
     logout: () => api().post('/auth/logout')
   },

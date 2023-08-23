@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import vSelect from 'vue-select'
 import { Select, CloseBold } from '@element-plus/icons-vue'
 import _ from 'lodash'

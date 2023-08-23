@@ -1,7 +1,32 @@
 import { ref, computed, watchEffect } from 'vue'
 import api from '@/api/index'
 
-export default function useBaseTable(filtersConfig, apiMethod) {
+type FilterConfig = {
+  [key: string]: {
+    value: {
+      id?: string | number;
+    } | string;
+  };
+};
+
+
+type FetchDataParams = {
+  currentPage: number;
+  pageSize: number;
+  sort?: {
+    sort_by?: string;
+    sort_desc?: number;
+  };
+};
+
+type SortChangeParams = {
+  prop: string;
+  order: 'ascending' | 'descending';
+};
+
+type APIMethods = keyof typeof api.dataTable;
+
+export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: APIMethods) {
   const tableData = ref([])
   const total = ref(0)
   const loading = ref(false)
@@ -9,10 +34,13 @@ export default function useBaseTable(filtersConfig, apiMethod) {
     if (key === 'search') {
       return computed(() => filter.value || '')
     }
-    return computed(() => filter.value?.id || '')
-  })
+    if (typeof filter.value === 'object' && filter.value !== null) {
+      return computed(() => (filter.value as { id?: string | number }).id || '')
+    }
+    return computed(() => '')
+  });
 
-  const handleSortChange = ({ prop, order }) => {
+  const handleSortChange = ({ prop, order }: SortChangeParams) => {
     const sortDesc = order === 'ascending' ? 0 : 1
     fetchData({
       currentPage: 1,
@@ -21,7 +49,7 @@ export default function useBaseTable(filtersConfig, apiMethod) {
     })
   }
 
-  const fetchData = ({ currentPage, pageSize, sort = {} }) => {
+  const fetchData = ({ currentPage, pageSize, sort = {} }: FetchDataParams) => {
     loading.value = true
     const allFiltersAreAll = filters.every((filter) => filter?.value === 'Все')
 
@@ -29,7 +57,7 @@ export default function useBaseTable(filtersConfig, apiMethod) {
     if (allFiltersAreAll) {
       combinedFilters = {}
     } else {
-      combinedFilters = Object.keys(filtersConfig).reduce((obj, key, index) => {
+      combinedFilters = Object.keys(filtersConfig).reduce<Record<string, any>>((obj, key, index) => {
         if (filters[index]?.value && filters[index]?.value !== 'Все') {
           obj[key] = filters[index]?.value
         }
