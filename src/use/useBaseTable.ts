@@ -1,47 +1,67 @@
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect, Ref } from 'vue'
 import api from '@/api/index'
 
-type FilterConfig = {
-  [key: string]: {
-    value:
-      | {
-          id?: string | number
-        }
-      | string
-  }
+interface FilterConfigValue {
+  value: string | { id: string }
 }
 
-type FetchDataParams = {
+interface FiltersConfig {
+  [key: string]: FilterConfigValue
+}
+
+interface Sort {
+  sort_by: string
+  sort_desc: number
+}
+
+interface FetchDataArgs {
   currentPage: number
   pageSize: number
-  sort?: {
-    sort_by?: string
-    sort_desc?: number
+  sort?: Sort
+}
+
+interface UseBaseTableReturns {
+  tableData: Ref<any[]>
+  total: Ref<number>
+  loading: Ref<boolean>
+  fetchData: (args: FetchDataArgs) => void
+  handleSortChange: (sort: SortChangeEvent) => void
+}
+
+interface APIResponse {
+  data: {
+    data: any[]
+    meta: {
+      total: number
+    }
   }
 }
 
-type SortChangeParams = {
+interface SortChangeEvent {
   prop: string
-  order: 'ascending' | 'descending'
+  order: 'ascending' | 'descending' | null
 }
 
-type APIMethods = keyof typeof api.dataTable
+type ApiMethod = keyof typeof api.dataTable
 
-export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: APIMethods) {
-  const tableData = ref([])
+export default function useBaseTable(filtersConfig: FiltersConfig, apiMethod: ApiMethod): UseBaseTableReturns {
+  const tableData: Ref<any[]> = ref([])
   const total = ref(0)
   const loading = ref(false)
   const filters = Object.entries(filtersConfig).map(([key, filter]) => {
     if (key === 'search') {
-      return computed(() => filter.value || '')
+      return computed(() => (typeof filter.value === 'string' ? filter.value : ''))
     }
-    if (typeof filter.value === 'object' && filter.value !== null) {
-      return computed(() => (filter.value as { id?: string | number }).id || '')
-    }
-    return computed(() => '')
+    return computed(() => {
+      let actualValue = (filter as any).value ? (filter as any).value : filter
+      if (typeof actualValue === 'object' && 'id' in actualValue) {
+        return actualValue.id
+      }
+      return ''
+    })
   })
 
-  const handleSortChange = ({ prop, order }: SortChangeParams) => {
+  const handleSortChange = ({ prop, order }: SortChangeEvent) => {
     const sortDesc = order === 'ascending' ? 0 : 1
     fetchData({
       currentPage: 1,
@@ -50,7 +70,7 @@ export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: API
     })
   }
 
-  const fetchData = ({ currentPage, pageSize, sort = {} }: FetchDataParams) => {
+  const fetchData = ({ currentPage, pageSize, sort = { sort_by: '', sort_desc: 0 } }: FetchDataArgs) => {
     loading.value = true
     const allFiltersAreAll = filters.every((filter) => filter?.value === 'Все')
 
@@ -75,7 +95,7 @@ export default function useBaseTable(filtersConfig: FilterConfig, apiMethod: API
     }
 
     api.dataTable[apiMethod](params)
-      .then((response) => {
+      .then((response: APIResponse) => {
         tableData.value = response.data.data
         total.value = response.data.meta.total
         loading.value = false
