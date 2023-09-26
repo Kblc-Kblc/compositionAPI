@@ -1,0 +1,14 @@
+:root {
+    --border-color: #fff;
+    --bg-color: #d3dce6;
+    --active-color: #409eff;
+    --vs-dropdown-bg: var(--el-fill-color-lighter);
+    --vs-font-size: 14px;
+    --vs-search-input-color: rgb(144, 147, 153);;
+    --bg-filter: #fff;
+}
+
+.dark {
+    --border-color: #363637;
+    --bg-filter: #E5EAF3;
+}
